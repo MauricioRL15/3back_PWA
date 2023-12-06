@@ -7,6 +7,7 @@ const sequelize = new Sequelize({
   username: 'root',
   password: 'admin',
   database: 'back_cuper',
+  port:3307,
 });
 
 module.exports = sequelize;
