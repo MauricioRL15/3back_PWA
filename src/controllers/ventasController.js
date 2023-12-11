@@ -5,10 +5,19 @@ const Bebida = require('../models/bebidaModel');
 const sequelize = require('../config/databaseConfig');
 
 const actualizarTotalVentasMesa = async (mesaId) => {
-  const [results] = await sequelize.query(
-    `CALL ActualizarTotalVentasMesa(${mesaId})`
-  );
-  // Puedes manejar resultados adicionales si es necesario
+  try {
+    const [results] = await sequelize.query(
+      `CALL ActualizarTotalVentasMesa(${mesaId})`
+    );
+
+    // Resultados es un array que contiene los resultados de la consulta
+    // Puedes hacer algo con los resultados si es necesario
+    console.log(results);
+
+    console.log('Venta actualizada correctamente');
+  } catch (error) {
+    console.error('Error al actualizar venta:', error);
+  }
 };
 
 exports.registrarVenta = async (req, res) => {
