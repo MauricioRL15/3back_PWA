@@ -4,6 +4,13 @@ const Platillo = require('../models/platilloModel');
 const Bebida = require('../models/bebidaModel');
 const sequelize = require('../config/databaseConfig');
 
+const actualizarTotalVentasMesa = async (mesaId) => {
+  const [results] = await sequelize.query(
+    `CALL ActualizarTotalVentasMesa(${mesaId})`
+  );
+  // Puedes manejar resultados adicionales si es necesario
+};
+
 exports.registrarVenta = async (req, res) => {
   const { mesaId, platilloId, bebidaId, cantidadPlatillo, cantidadBebida, observacionesPlatillo } = req.body;
 
@@ -30,6 +37,7 @@ exports.registrarVenta = async (req, res) => {
 
     // Actualizar el ticket para establecer confirmado en true
     await ticket.update({ confirmado: true });
+    await actualizarTotalVentasMesa(mesaId);
 
     res.json({ message: 'Venta registrada correctamente' });
   } catch (error) {
